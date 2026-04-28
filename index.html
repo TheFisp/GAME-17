@@ -27,22 +27,19 @@
             text-align: center;
             max-width: 80%;
             color: #444;
-            min-height: 6rem;
+            min-height: 8rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Transizione fluida per l'ingrandimento */
             transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
         }
 
-        /* Classe per l'effetto ingrandimento al click */
         .click-pulse {
-            transform: scale(1.2);
+            transform: scale(1.15);
         }
 
-        /* Stile quando appare il messaggio invece dei punti */
         #display-text.active-msg {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #ff4d4d;
             font-style: italic;
             text-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
@@ -69,7 +66,6 @@
             box-shadow: 0 0 25px #ff0055;
         }
 
-        /* Schermata Vittoria */
         #win-overlay {
             display: none;
             position: fixed;
@@ -132,6 +128,7 @@
         const secretBtn = document.getElementById('secret-button');
         const winOverlay = document.getElementById('win-overlay');
 
+        // Ho aggiunto diverse nuove frasi qui sotto
         const phrases = [
             "Lascia perdere",
             "Non troverai nulla qua",
@@ -139,26 +136,32 @@
             "Davvero? Ancora?",
             "Perché continui?",
             "È inutile.",
-            "Torna a studiare."
+            "Torna a studiare.",
+            "Il mouse si sta stancando",
+            "Niente da fare, eh?",
+            "La perseveranza è un dono, ma qui è sprecata",
+            "Cerca un hobby meglio di questo",
+            "Loading... scherzo, non carica nulla",
+            "Ti vedo motivato, ma non serve a niente",
+            "E se ti dicessi che non c'è nessun tasto?",
+            "Hai premuto abbastanza, ora riposati",
+            "Ops! Hai mancato il premio... ah no, non c'è",
+            "Guarda dietro di te! (Scherzavo)",
+            "Dovresti fare qualcosa di produttivo"
         ];
 
-        // Gestione Click e Animazione
         displayText.addEventListener('click', () => {
             clickCount++;
-            
-            // Effetto ingrandimento immediato
             displayText.classList.add('click-pulse');
             setTimeout(() => {
                 displayText.classList.remove('click-pulse');
             }, 150);
 
-            // Logica messaggi ogni 20 click
             if (clickCount % 20 === 0) {
                 const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
                 displayText.innerText = randomPhrase;
                 displayText.classList.add('active-msg');
                 
-                // Torna ai 3 punti dopo 2 secondi
                 setTimeout(() => {
                     displayText.innerText = "...";
                     displayText.classList.remove('active-msg');
@@ -166,13 +169,13 @@
             }
         });
 
-        // Timer per il bottone (2 minuti = 120.000 ms)
-       // Timer per il bottone (8 minuti = 480.000 ms)
-    setTimeout(() => {
-    secretBtn.style.display = 'block';
-    }, 300000);
-      
-        // Vittoria
+        // --- TIMER 3 MINUTI (180.000 ms) ---
+        const tempoAttesa = 180000; 
+
+        setTimeout(() => {
+            secretBtn.style.display = 'block';
+        }, tempoAttesa);
+
         secretBtn.addEventListener('click', () => {
             winOverlay.style.display = 'flex';
             initConfetti();
